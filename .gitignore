@@ -4,6 +4,13 @@
 *.tiff
 *.tif
 
+# JetBrains IDEs
+.idea/
+
+# Nexus Build Files
+*.Dockerfile
+values.yaml
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

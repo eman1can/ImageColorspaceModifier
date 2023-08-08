@@ -1,0 +1,15 @@
+pillow
+plotly
+dash
+dash-svg
+dash-daq
+requests
+fastapi
+pydantic
+uvicorn
+gunicorn
+asgiref
+dash-bootstrap-components
+dash-bootstrap-templates
+portal-utils @git+https://aerosource2.aero.org/bitbucket/scm/pslportal/portal-utils.git
+dash-view @git+https://aerosource2.aero.org/bitbucket/scm/pslportal/dash-view.git

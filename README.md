@@ -1,36 +1,66 @@
 # Image Colorspace Modifier
 
-The Image Colorspace Modifier Program allows you to inver, offset, and change the different color channels of an image.
+A program to perform various operations on the color channels of an image. Leverages PIL to make operations on the color
+channels easy, and setting up a image conversion pipeline.
 
-Usage: convert.py <mode> <sub_mode> [<option>...] , <image> [<image>...]
+The input image need only be specified once if multiple commands are used. The first time the input
+image is specified, no flag is needed, but subsequent input images must be preceded by the -i flag.
+If no output image is specified, the input image will be overwritten. If no output image is specified
+for the last operation, the last specified output image will be overwritten.
 
-WARNING: Note the ',' between the option array and the image array! Excluding this comma will break the program!
+All output images will be saved in the same channel format as the input image.
 
-capitalization is irrelvant in the non image arguments, as everything gets lowercased.
+Ex. cli.py invert input.png +rghl offset +r 0.5 -o output.png
+This will open input.png, invert the rgbl channels, save the image to input.png, the offset the red
+channel by half, then save the image to output.png.
 
-Special Flags:
-    -h Show this menu
-    -d Enable Debug Messages
+All channel operation are performed in normal space between 0 and 1. All operation are clamped to inside
+this range after the operation is performed. This means that if you offset the red channel by 0.5, all
+values will be clamped to between 0 and 1 after the offset is performedm, and before any other command
+is performed. This can be disabled by using the --no-clamp flag.
 
-Mode:
-    The mode specifies the main operation to perform
-    
-    invert
-        Invert the channel, x → 1 - x
-    
-    offset
-        Offset the channel, x → x + y
+In the following examples, +c is the shorthand to the specified channel flag.
 
-Sub-Mode / Channels:
-    The sub mode specifies the channels that the mode affects.
-    The sub mode is any combination of h, s, v, r, g, b, and a, where each letter represents the corresponding channel and then followed by a ':' separated list of float values for each channel
-    Ex. HSR:0.4:0.3:0.23
+## Supported channels
 
-Option:
-    The option is an operation to perform before or after the main mode operation, and can either be a min or max clamp or a channel offset.
-    The option consists of the letter of the channel, (a)fter, (b)efore, and the option name. Ex. RAmin is a min clamp on the R channel after the mode operation.
-    The value is separated by a ':', and is a float value. Ex: RAmin:30.21
+- R - Red
+- G - Green
+- B - Blue
+- H - Hue
+- S - Saturation
+- V - Value
+- L - Lightness
+- A - Alpha
 
-Image:
-    The image is an input image name and an output image name. This can be an absolue or relative path. The names are seperated by a ':'.
-    Ex: image_red.png:image_blue.png
+## Supported Pixel Formats
+
+- RGB
+- RGBA
+- HSV
+- LA
+- L
+
+### Invert - Invert the specified color channels
+
+x = 1 - x  
+Usage: cli.py invert +c
+
+### Offset - Offset the specified color channels by the specified amount
+
+x = x + y
+Usage: cli.py offset +c offset_value
+
+### Threshold - Threshold the specified color channels with the given threshold
+
+x = 0 if x < y else 1
+Usage: cli.py threshold +c threshold_value | mean | median
+
+### Scale - Scale the specified color channels by the specified amount
+
+x = x * y
+Usage: cli.py scale +c scale_factor
+
+### Clamp - Clamp the specified color channels to between a given minimum or maximum
+
+x = min(x, y) or max(x, y)
+Usage: cli.py clamp +c {min, max} value | mean | median

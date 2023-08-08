@@ -1,0 +1,410 @@
+<Photo name:str path:str Div>:
+    style:
+        position: 'relative'
+        height: '200px'
+        display: 'inline-block'
+        border: '1px solid black'
+        margin: '5px'
+        borderRadius: '5px'
+        overflow: 'hidden'
+        verticalAlign: 'bottom'
+        lineHeight: '200px'
+    Img:
+        src: path
+        style:
+            height: '205px'
+    Button:
+        id: {'type': 'photo-remove', 'value': name}
+        style:
+            position: 'absolute'
+            top: '0'
+            right: '0'
+            width: '40px'
+            height: '40px'
+            borderWidth: '0px'
+            backgroundColor: 'transparent'
+            padding: '0'
+        svg.Svg:
+            fill: '#000000'
+            viewBox: '0 0 16 16'
+            style:
+                width: '40px'
+                height: '40px'
+            svg.Path:
+                d: "M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+
+
+
+<InputUpload Div>:
+    className: 'upload'
+    Upload:
+        'Drag and Drop or '
+        id: 'upload-data'
+        multiple: True
+        accept: 'image/*'
+        style:
+            height: '200px'
+            lineHeight: '200px'
+            borderWidth: '1px'
+            borderStyle: 'dashed'
+            borderColor: 'black'
+            borderRadius: '5px'
+            textAlign: 'center'
+        A:
+            'Select Files'
+
+<DropdownItem value:str DropdownMenuItem>:
+    value
+    id: {'type': 'add-modification', 'value': value}
+    n_clicks: 0
+
+<Vr Div>:
+    style:
+        borderWidth: '0'
+        borderLeft: '1px'
+        borderStyle: 'solid'
+        borderColor: 'black'
+        height: '78px'
+
+<ImageFormatButton name:str Button>:
+    name
+    style:
+        display: 'inline-block'
+        paddingTop: '2px'
+        paddingBottom: '2px'
+        marginRight: '20px'
+        width: '150px'
+
+<ChannelDisplay Col>:
+    Row:
+        justify: 'center'
+        Col:
+            Row:
+                Col:
+                    ImageFormatButton:
+                        name: 'RGB'
+                    Checklist:
+                        inline: True
+                        options: ['R', 'G', 'B']
+                        style:
+                            display: 'inline-block'
+            Row:
+                Col:
+                    ImageFormatButton:
+                        name: 'HSV'
+                    Checklist:
+                        inline: True
+                        options: ['H', 'S', 'V']
+                        style:
+                            display: 'inline-block'
+            Row:
+                Col:
+                    ImageFormatButton:
+                        name: 'Grayscale'
+                    Checklist:
+                        inline: True
+                        options: ['L']
+                        style:
+                            display: 'inline-block'
+            Row:
+                Col:
+                    ImageFormatButton:
+                        name: 'Alpha'
+                    Checklist:
+                        inline: True
+                        options: ['A']
+                        style:
+                            display: 'inline-block'
+
+<ModificationOutput base_id:str Col>:
+    width: 'auto'
+    Button:
+        'No Output'
+        id: {'type': 'modification-output', 'value': base_id}
+        style:
+            backgroundColor: '#ffffff'
+            color: '#000000'
+            borderWidth: '3px'
+            width: '140px'
+
+<ModificationNumeric name:str Col>:
+    width: 'auto'
+    Row:
+        Col:
+            Label:
+                name
+    Row:
+        Col:
+            ButtonGroup:
+                Select:
+                    options: [{'label': '', 'value': ''}, {'label': 'Mean', 'value': 'mean'}, {'label': 'Median', 'value': 'median'}, {'label': 'Min', 'value': 'min'}, {'label': 'Max', 'value': 'max'}, {'label': 'Sum', 'value': 'sum'}, {'label': 'Std', 'value': 'std'}]
+                    style:
+                        borderWidth: '3px'
+                        borderRight: '0'
+                        borderColor: '#000000'
+                Input:
+                    type: 'number'
+                    min: 0
+                    max: 1
+                    step: 0.1
+                    style:
+                        borderWidth: '3px'
+                        borderColor: '#000000'
+                        width: '150px'
+
+<ModificationRow action:str base_id:str Card>:
+    style:
+        margin: '10px 0'
+    CardBody:
+        style:
+            position: 'relative'
+            padding: '8px 16px'
+        Row:
+            align: 'center'
+            Col:
+                width: 'auto'
+                Row:
+                    H4:
+                        action
+                        style:
+                            margin: '0'
+            Col:
+                width: 'auto'
+                Vr:
+            ChannelDisplay:
+            Col:
+                width: 'auto'
+                Vr:
+            ModificationOutput:
+                base_id: base_id
+
+<ModificationRowNumeric action:str base_id:str numeric_name:str Card>:
+    style:
+        margin: '10px 0'
+    CardBody:
+        style:
+            position: 'relative'
+            padding: '8px 16px'
+        Row:
+            align: 'center'
+            Col:
+                width: 'auto'
+                Row:
+                    H4:
+                        action
+                        style:
+                            margin: '0'
+            Col:
+                width: 'auto'
+                Vr:
+            ChannelDisplay:
+            Col:
+                width: 'auto'
+                Vr:
+            ModificationNumeric:
+                name: numeric_name
+            Col:
+                width: 'auto'
+                Vr:
+            ModificationOutput:
+                base_id: base_id
+
+<ModificationRowKeywordNumeric action:str base_id:str keyword_name:str keywords:list numeric_name:str Card>:
+    style:
+        margin: '10px 0'
+    CardBody:
+        style:
+            position: 'relative'
+            padding: '8px 16px'
+        Row:
+            align: 'center'
+            Col:
+                width: 'auto'
+                Row:
+                    H4:
+                        action
+                        style:
+                            margin: '0'
+            Col:
+                width: 'auto'
+                Vr:
+            ChannelDisplay:
+            Col:
+                width: 'auto'
+                Vr:
+            Col:
+                width: 'auto'
+                Row:
+                    Col:
+                        Label:
+                            keyword_name
+                Row:
+                    Col:
+                        Select:
+                            options: keywords
+                            style:
+                                borderWidth: '3px'
+                                borderColor: '#000000'
+            Col:
+                width: 'auto'
+                Vr:
+            ModificationNumeric:
+                name: numeric_name
+            Col:
+                width: 'auto'
+                Vr:
+            ModificationOutput:
+                base_id: base_id
+
+Container:
+    H1:
+        'Colorspace Modifier'
+        style:
+            marginTop: '20px'
+    Hr:
+    Row:
+        Col:
+            Row:
+                Col:
+                    width: 'auto'
+                    H2:
+                        'Input'
+                        style:
+                            margin: '0'
+                            lineHeight: '54px'
+                Col:
+                    Button:
+                        'Clear Files'
+                        id: 'clear-input'
+                        style:
+                            display: 'none'
+            Row:
+                Col:
+                    Div:
+                        id: 'input-photos'
+                        style:
+                            height: '230px'
+                            marginTop: '15px'
+                            overflowX: 'auto'
+                            overflowY: 'hidden'
+                            whiteSpace: 'nowrap'
+                        InputUpload:
+    Hr:
+    Row:
+        Col:
+            Row:
+                Col:
+                    H2:
+                        'Modifications'
+                        style:
+                            margin: '0'
+                            lineHeight: '54px'
+                Col:
+                    width: 'auto'
+                    Button:
+                        'Auto Clamp ON'
+                        id: 'auto-clamp'
+                        style:
+                            width: '200px'
+                            borderColor: '#32CD32'
+                            borderWidth: '3px'
+                            borderStyle: 'solid'
+
+                Col:
+                    width: 'auto'
+                    Button:
+                        'Clear Modifications'
+                        id: 'clear-modifications'
+                        disabled: True
+
+            Row:
+                Col:
+                    style:
+                        maxHeight: '400px'
+                        overflowY: 'auto'
+                    Div:
+                        id: 'modification-list'
+                        className: 'container'
+                        style:
+                            borderWidth: '2px'
+                            borderStyle: 'solid'
+                            borderColor: 'black'
+                            margin: '10px 0'
+                            minHeight: '300px'
+                        #ModificationRow:
+                        #    action: 'Invert'
+                        #    base_id: 'lkiajuwhbnepoiqw832y4piwabse5'
+                        #ModificationRowNumeric:
+                        #    action: 'Offset'
+                        #    base_id: 'lkiauwhbe2k3jgh'
+                        #    numeric_name: 'Offset Amount'
+                        #ModificationRowKeywordNumeric:
+                        #    action: 'Clamp'
+                        #    base_id: 'ijuahbwe98238809q23lkan'
+                        #    numeric_name: 'Clamp Value'
+                        #    keyword_name: 'Operation'
+                        #    keywords: ['Floor', 'Ceiling']
+            Row:
+                align: 'center'
+                Col:
+                    width: 'auto'
+                    DropdownMenu:
+                        label: 'Add Operation'
+                        direction: 'end'
+                        DropdownItem:
+                            loop: ['Invert', 'Offset', 'Scale', 'Clamp', 'Threshold']
+                Col:
+                    H6:
+                        'Error!'
+                        id: 'modification-error'
+                        style:
+                            color: "#FD1616"
+                Col:
+                    width: 'auto'
+                    Button:
+                        'Load JSON'
+                        id: 'load-modifications'
+                Col:
+                    width: 'auto'
+                    Button:
+                        'Save JSON'
+                        id: 'save-modifications'
+                        disabled: True
+                Col:
+                    width: 'auto'
+                    Button:
+                        'Process'
+                        id: 'apply-modifications'
+                        disabled: True
+    Hr:
+    Row:
+        Col:
+            Row:
+                Col:
+                    width: 'auto'
+                    H2:
+                        'Output'
+                        style:
+                            margin: '0'
+                            lineHeight: '54px'
+                Col:
+                    width: 'auto'
+                    Button:
+                        'Download Files'
+                        id: 'download-output'
+                        style:
+                            display: 'none'
+            Row:
+                Col:
+                    Div:
+                        id: 'output-photos'
+                        style:
+                            height: '230px'
+                            marginTop: '15px'
+                            overflowX: 'auto'
+                            overflowY: 'hidden'
+                            whiteSpace: 'nowrap'
+                        H2:
+                            'Nothing to Show'
+                            style:
+                                textAlign: 'center'

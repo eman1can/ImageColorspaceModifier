@@ -1,0 +1,15 @@
+Src: src
+Api: api/main.py
+Gui: gui/main.py
+Docs: False
+Notebooks: False
+Info: False
+Project Identifier: colorspace-modifier
+Project Title: Image Colorspace Modifier
+Project Description: A tool to modify the color channels of an image
+Project Version: 2.0.0
+Authors: Ethan Wolfe
+Contact: ethan.wolef@aero.org
+Tags: Subject Matter Topics: Image Manipulation, Image Segmentation
+Tags: Operational Terms: Image Modification, Colorspace
+Tags: Software: Python, Pillow
